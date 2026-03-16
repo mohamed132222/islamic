@@ -38,6 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: BottomNavigationBar(
               selectedItemColor: MyTheme.darkColor,
               unselectedItemColor: MyTheme.whiteColor,
+
               selectedIconTheme: IconThemeData(color: MyTheme.darkColor),
               unselectedIconTheme: IconThemeData(color: MyTheme.whiteColor),
               currentIndex: selectedIndex,
@@ -47,20 +48,32 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               items: [
                 BottomNavigationBarItem(
-                  icon: ImageIcon(AssetImage("assets/images/quran_icon.png")),
+                  icon: ImageIcon(
+                    AssetImage("assets/images/quran_icon.png"),
+                    size: 40,
+                  ),
                   label: "quran",
                 ),
                 BottomNavigationBarItem(
-                  icon: ImageIcon(AssetImage("assets/images/hadeth_icon.png")),
-                  label: "quran",
+                  icon: ImageIcon(
+                    AssetImage("assets/images/hadeth_icon.png"),
+                    size: 40,
+                  ),
+                  label: "hadeth",
                 ),
                 BottomNavigationBarItem(
-                  icon: ImageIcon(AssetImage("assets/images/radio_icon.png")),
-                  label: "quran",
+                  icon: ImageIcon(
+                    AssetImage("assets/images/radio_icon.png"),
+                    size: 40,
+                  ),
+                  label: "radio",
                 ),
                 BottomNavigationBarItem(
-                  icon: ImageIcon(AssetImage("assets/images/sebha_icon.png")),
-                  label: "quran",
+                  icon: ImageIcon(
+                    AssetImage("assets/images/sebha_icon.png"),
+                    size: 40,
+                  ),
+                  label: "sebha",
                 ),
               ],
             ),
