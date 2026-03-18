@@ -1,8 +1,10 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart' hide Radio;
+import 'package:provider/provider.dart';
 import 'package:quran_app/home/radio/radio_response.dart';
 
 import '../../MyTheme.dart';
+import '../../provider/app_provider.dart';
 
 class RadioItem extends StatelessWidget {
   Radio radio;
@@ -12,13 +14,19 @@ class RadioItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppProvider>(context);
+
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: Column(
         children: [
           Text(
             radio.name ?? "",
-            style: Theme.of(context).textTheme.titleMedium,
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              color: provider.appTheme == ThemeMode.dark
+                  ? MyTheme.whiteColor
+                  : MyTheme.darkColor,
+            ),
           ),
           SizedBox(height: 30),
           Row(
@@ -30,7 +38,9 @@ class RadioItem extends StatelessWidget {
                 },
                 child: Icon(
                   Icons.play_arrow,
-                  color: MyTheme.primaryColor,
+                  color: provider.appTheme == ThemeMode.dark
+                      ? MyTheme.goldColor
+                      : MyTheme.primaryColor,
                   size: 50,
                 ),
               ),
@@ -39,7 +49,13 @@ class RadioItem extends StatelessWidget {
                 onTap: () {
                   audioPlayer.stop();
                 },
-                child: Icon(Icons.stop, color: MyTheme.primaryColor, size: 50),
+                child: Icon(
+                  Icons.stop,
+                  color: provider.appTheme == ThemeMode.dark
+                      ? MyTheme.goldColor
+                      : MyTheme.primaryColor,
+                  size: 50,
+                ),
               ),
             ],
           ),

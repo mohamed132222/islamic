@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:quran_app/home/sebha/sebha_body.dart';
 import 'package:quran_app/home/sebha/sebha_counter.dart';
 import 'package:quran_app/home/sebha/tasbeh_text.dart';
+
+import '../../MyTheme.dart';
+import '../../l10n/app_localizations.dart';
+import '../../provider/app_provider.dart';
 
 class SebhaScreen extends StatefulWidget {
   const SebhaScreen({super.key});
@@ -23,6 +28,7 @@ class _SebhaScreenState extends State<SebhaScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppProvider>(context);
     return Center(
       child: Column(
         children: [
@@ -34,7 +40,14 @@ class _SebhaScreenState extends State<SebhaScreen> {
 
           SizedBox(height: 30),
 
-          Text("عدد التسبيحات", style: Theme.of(context).textTheme.titleMedium),
+          Text(
+            AppLocalizations.of(context)!.numoftasbeh,
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              color: provider.appTheme == ThemeMode.dark
+                  ? MyTheme.whiteColor
+                  : MyTheme.darkColor,
+            ),
+          ),
 
           SizedBox(height: 30),
 

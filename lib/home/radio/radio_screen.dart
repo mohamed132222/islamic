@@ -3,9 +3,12 @@ import 'dart:convert';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'package:quran_app/MyTheme.dart';
 import 'package:quran_app/home/radio/radio_item.dart';
 import 'package:quran_app/home/radio/radio_response.dart';
+
+import '../../provider/app_provider.dart';
 
 class RadioScreen extends StatefulWidget {
   static const String routeName = '/radio';
@@ -21,6 +24,7 @@ class _RadioScreenState extends State<RadioScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppProvider>(context);
     return Column(
       children: [
         Expanded(child: Container()),
@@ -45,7 +49,9 @@ class _RadioScreenState extends State<RadioScreen> {
               return Text("Error loading radio");
             } else {
               return CircularProgressIndicator(
-                color: MyTheme.primaryColor,
+                color: provider.appTheme == ThemeMode.dark
+                    ? MyTheme.goldColor
+                    : MyTheme.primaryColor,
                 padding: EdgeInsets.all(50),
               );
             }

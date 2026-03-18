@@ -1,8 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:quran_app/MyTheme.dart';
 import 'package:quran_app/home/hadeth/hadeth_name_item.dart';
+
+import '../../l10n/app_localizations.dart';
+import '../../provider/app_provider.dart';
 
 class HadethScreen extends StatefulWidget {
   static const String routeName = '/hadeth';
@@ -23,6 +27,7 @@ class _HadethScreenState extends State<HadethScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppProvider>(context);
     return Scaffold(
       body: Column(
         children: [
@@ -30,17 +35,36 @@ class _HadethScreenState extends State<HadethScreen> {
             padding: const EdgeInsets.all(16.0),
             child: Center(child: Image.asset("assets/images/hadeth_logo.png")),
           ),
-          const Divider(thickness: 3, color: MyTheme.primaryColor),
-          Text("Hadeth Name", style: Theme.of(context).textTheme.titleMedium),
-          const Divider(thickness: 3, color: MyTheme.primaryColor),
+          Divider(
+            thickness: 3,
+            color: provider.appTheme == ThemeMode.dark
+                ? MyTheme.goldColor
+                : MyTheme.primaryColor,
+          ),
+          Text(
+            AppLocalizations.of(context)!.hadethname,
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              color: provider.appTheme == ThemeMode.dark
+                  ? MyTheme.whiteColor
+                  : MyTheme.darkColor,
+            ),
+          ),
+          Divider(
+            thickness: 3,
+            color: provider.appTheme == ThemeMode.dark
+                ? MyTheme.goldColor
+                : MyTheme.primaryColor,
+          ),
           Expanded(
             child: FutureBuilder<List<Hadeth>>(
               future: _hadethFuture,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
+                  return Center(
                     child: CircularProgressIndicator(
-                      color: MyTheme.primaryColor,
+                      color: provider.appTheme == ThemeMode.dark
+                          ? MyTheme.goldColor
+                          : MyTheme.primaryColor,
                     ),
                   );
                 } else if (snapshot.hasError) {
@@ -53,9 +77,11 @@ class _HadethScreenState extends State<HadethScreen> {
                       return Column(
                         children: [
                           HadethNameItem(hadeth: hadethList[index]),
-                          const Divider(
+                          Divider(
                             thickness: 2,
-                            color: MyTheme.primaryColor,
+                            color: provider.appTheme == ThemeMode.dark
+                                ? MyTheme.goldColor
+                                : MyTheme.primaryColor,
                           ),
                         ],
                       );

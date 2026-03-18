@@ -1,0 +1,17 @@
+{
+"language":"Language",
+"theme":"Theme",
+"islamic":"Islamic",
+"arabic":"Arabic",
+"english":"English",
+"light":"Light",
+"dark":"Dark",
+"settings":"Settings",
+"sebha":"Sebha",
+"numoftasbeh":"Num Of Tasbeh",
+"radio":"Radio",
+"hadeth":"Hadeth",
+"hadethname":"Hadeth Name",
+"quran":"Quran",
+"suraname":"Sura Name"
+}

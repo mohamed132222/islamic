@@ -34,4 +34,32 @@ class MyTheme {
     scaffoldBackgroundColor: Colors.transparent,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(),
   );
+  static ThemeData darkTheme = ThemeData(
+    primaryColor: primaryColor,
+    appBarTheme: AppBarTheme(
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      centerTitle: true,
+      iconTheme: IconThemeData(color: whiteColor),
+    ),
+    textTheme: TextTheme(
+      titleLarge: TextStyle(
+        color: whiteColor,
+        fontSize: 30,
+        fontWeight: FontWeight.w700,
+      ),
+      titleMedium: TextStyle(
+        color: whiteColor,
+        fontSize: 25,
+        fontWeight: FontWeight.w600,
+      ),
+      titleSmall: TextStyle(
+        color: whiteColor,
+        fontSize: 20,
+        fontWeight: FontWeight.w400,
+      ),
+    ),
+    scaffoldBackgroundColor: Colors.transparent,
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(),
+  );
 }

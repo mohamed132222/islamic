@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:quran_app/home/hadeth/hadeth_screen.dart';
+
+import '../../MyTheme.dart';
+import '../../provider/app_provider.dart';
 
 class HadethDetailsScreen extends StatelessWidget {
   static const String routeName = '/hadeth_details';
@@ -8,26 +12,40 @@ class HadethDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppProvider>(context);
     var args = ModalRoute.of(context)?.settings.arguments as Hadeth;
     return Stack(
       children: [
         Image.asset(
-          "assets/images/default_bg.png",
+          provider.appTheme == ThemeMode.dark
+              ? "assets/images/dark_bg.png"
+              : "assets/images/default_bg.png",
           fit: BoxFit.fill,
           height: double.infinity,
           width: double.infinity,
         ),
         Scaffold(
           appBar: AppBar(
+            iconTheme: IconThemeData(
+              color: provider.appTheme == ThemeMode.dark
+                  ? MyTheme.whiteColor
+                  : MyTheme.darkColor,
+            ),
             title: Text(
               args.title,
-              style: Theme.of(context).textTheme.titleLarge,
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                color: provider.appTheme == ThemeMode.dark
+                    ? MyTheme.whiteColor
+                    : MyTheme.darkColor,
+              ),
             ),
           ),
           body: Center(
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: provider.appTheme == ThemeMode.dark
+                    ? MyTheme.primaryDarkColor
+                    : Colors.white,
                 borderRadius: BorderRadius.circular(25),
               ),
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -41,6 +59,9 @@ class HadethDetailsScreen extends StatelessWidget {
                     args.content[index],
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: provider.appTheme == ThemeMode.dark
+                          ? MyTheme.goldColor
+                          : MyTheme.darkColor,
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                     ),

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:quran_app/MyTheme.dart';
 import 'package:quran_app/home/quran/sura_name_item.dart';
+
+import '../../l10n/app_localizations.dart';
+import '../../provider/app_provider.dart';
 
 class QuranScreen extends StatelessWidget {
   static const String routeName = '/quran';
@@ -123,19 +127,41 @@ class QuranScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppProvider>(context);
     return Column(
       children: [
         Center(child: Image.asset("assets/images/quran_logo.png")),
-        Divider(color: MyTheme.primaryColor, thickness: 3),
-        Text("Sura Name", style: Theme.of(context).textTheme.titleMedium),
-        Divider(color: MyTheme.primaryColor, thickness: 3),
+        Divider(
+          color: provider.appTheme == ThemeMode.dark
+              ? MyTheme.goldColor
+              : MyTheme.primaryColor,
+          thickness: 3,
+        ),
+        Text(
+          AppLocalizations.of(context)!.suraname,
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+            color: provider.appTheme == ThemeMode.dark
+                ? MyTheme.whiteColor
+                : MyTheme.darkColor,
+          ),
+        ),
+        Divider(
+          color: provider.appTheme == ThemeMode.dark
+              ? MyTheme.goldColor
+              : MyTheme.primaryColor,
+          thickness: 3,
+        ),
 
         Expanded(
           child: ListView.separated(
             itemBuilder: (context, index) =>
                 SuraNameItem(title: suraName[index], index: index),
-            separatorBuilder: (context, index) =>
-                Divider(color: MyTheme.primaryColor, thickness: 3),
+            separatorBuilder: (context, index) => Divider(
+              color: provider.appTheme == ThemeMode.dark
+                  ? MyTheme.goldColor
+                  : MyTheme.primaryColor,
+              thickness: 3,
+            ),
             itemCount: suraName.length,
           ),
         ),

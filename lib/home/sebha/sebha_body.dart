@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../provider/app_provider.dart';
 
 class SebhaBody extends StatelessWidget {
   final double turns;
@@ -7,6 +10,7 @@ class SebhaBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppProvider>(context);
     return Stack(
       alignment: Alignment.topCenter,
       children: [
@@ -17,10 +21,18 @@ class SebhaBody extends StatelessWidget {
           child: AnimatedRotation(
             turns: turns,
             duration: const Duration(milliseconds: 500),
-            child: Image.asset("assets/images/body_sebha_logo.png"),
+            child: Image.asset(
+              provider.appTheme == ThemeMode.dark
+                  ? "assets/images/body_sebha_dark.png"
+                  : "assets/images/body_sebha_logo.png",
+            ),
           ),
         ),
-        Image.asset("assets/images/head_sebha_logo.png"),
+        Image.asset(
+          provider.appTheme == ThemeMode.dark
+              ? "assets/images/head_sebha_dark.png"
+              : "assets/images/head_sebha_logo.png",
+        ),
       ],
     );
   }

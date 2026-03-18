@@ -1,7 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:quran_app/MyTheme.dart';
+
+import '../../provider/app_provider.dart';
 
 class QuranDetailsScreen extends StatefulWidget {
   static const String routeName = '/quran_details';
@@ -29,10 +32,13 @@ class _QuranDetailsScreenState extends State<QuranDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppProvider>(context);
     return Stack(
       children: [
         Image.asset(
-          "assets/images/default_bg.png",
+          provider.appTheme == ThemeMode.dark
+              ? "assets/images/dark_bg.png"
+              : "assets/images/default_bg.png",
           fit: BoxFit.fill,
           height: double.infinity,
           width: double.infinity,
@@ -40,24 +46,38 @@ class _QuranDetailsScreenState extends State<QuranDetailsScreen> {
         Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
+            iconTheme: IconThemeData(
+              color: provider.appTheme == ThemeMode.dark
+                  ? MyTheme.whiteColor
+                  : MyTheme.darkColor,
+            ),
+
             title: Text(
               args.title,
-              style: Theme.of(context).textTheme.titleLarge,
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                color: provider.appTheme == ThemeMode.dark
+                    ? MyTheme.whiteColor
+                    : MyTheme.darkColor,
+              ),
             ),
           ),
           body: Center(
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: provider.appTheme == ThemeMode.dark
+                    ? MyTheme.primaryDarkColor
+                    : Colors.white,
                 borderRadius: BorderRadius.circular(25),
               ),
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               width: MediaQuery.of(context).size.width * .8,
               height: MediaQuery.of(context).size.height * .69,
               child: isLoading
-                  ? const Center(
+                  ? Center(
                       child: CircularProgressIndicator(
-                        color: MyTheme.primaryColor,
+                        color: provider.appTheme == ThemeMode.dark
+                            ? MyTheme.goldColor
+                            : MyTheme.primaryColor,
                       ),
                     )
                   : ListView.builder(
@@ -69,6 +89,9 @@ class _QuranDetailsScreenState extends State<QuranDetailsScreen> {
                           textAlign: TextAlign.center,
                           style: Theme.of(context).textTheme.titleMedium
                               ?.copyWith(
+                                color: provider.appTheme == ThemeMode.dark
+                                    ? MyTheme.goldColor
+                                    : MyTheme.darkColor,
                                 fontSize: 22,
                                 fontWeight: FontWeight.bold,
                               ),
